@@ -1,0 +1,24 @@
+
+{% extends "_base.html" %}
+
+{% block title %}
+    <title>ムーンバイト | Edit</title>
+{% endblock %}
+
+{% block body_class %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+    <h1>{{ form.instance.pk|yesno:"Edit Item,Create Item" }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{{ form.instance.pk|yesno:"Update,Create" }}</button>
+    </form>
+    <a href="{% url 'item_list' %}">Back to List</a>
+
+{% endblock content %}

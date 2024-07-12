@@ -1,0 +1,52 @@
+
+<!-- templates/_base.html -->
+
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'assets/Favicon.png' %}" type="image/x-icon">
+    {% block title %}
+    <title>Moonbite ムーンバイト</title>
+    {% endblock %}
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}  
+
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body class="{% block body_class %}{% endblock %}font-montserrat">
+    <header>
+        <nav>
+            {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+            {% elif request.path == '/login/' %}
+                <p><a href="{% url 'landing_page' %}">Back to Landing Page</a></p>
+                <p><a href="{% url 'signup' %}">Signup</a></p>
+            {% else %}
+                <p><a href="{% url 'login' %}">Login</a></p>
+                <p><a href="{% url 'signup' %}">Signup</a></p>
+            {% endif %}
+        </nav>
+    </header>
+    <div class="" id="content">
+        {% block content %}
+        
+
+
+        {% endblock content %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+
+</html>

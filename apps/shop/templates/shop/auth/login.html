@@ -1,0 +1,31 @@
+
+{% extends "_base.html" %}
+
+{% block title %}
+    <title>ムーンバイト | Login</title>
+{% endblock %}
+
+{% block body_class %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+    <h1>Login</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+{% endblock content %}

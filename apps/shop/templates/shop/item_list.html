@@ -1,0 +1,39 @@
+
+{% extends "_base.html" %}
+
+{% block title %}
+    <title>ムーンバイト | List</title>
+{% endblock %}
+
+{% block body_class %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+    <h1>Item List</h1>
+    <ul>
+        {% for item in items %}
+            <li>
+                <h2>{{ item.name }}</h2>
+                <p>Description: {{ item.description }}</p>
+                <p>Price: {{ item.price }}</p>
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                {% endif %}
+                <a href="{% url 'item_detail' item.id %}">View Details</a>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'add_to_cart' item.id %}">
+                        {% csrf_token %}
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1">
+                        <button type="submit">Buy</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+
+{% extends "_base.html" %}
+
+{% block title %}
+    <title>ムーンバイト | Cart</title>
+{% endblock %}
+
+{% block body_class %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<h1>Your Cart</h1>
+
+{% if cart.cartitem_set.count > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart_item in cart.cartitem_set.all %}
+                <tr>
+                    <td>{{ cart_item.item.name }}</td>
+                    <td>{{ cart_item.quantity }}</td>
+                    <td>${{ cart_item.item.price }}</td>
+                    <td>${{ cart_item.item.price|floatformat:2 }}</td>
+                    <td>
+                        <form method="post" action="{% url 'remove_from_cart' cart_item.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total: ${{ total|floatformat:2 }}</p>
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <button type="submit">Checkout</button>
+    </form>
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+{% endblock content %}

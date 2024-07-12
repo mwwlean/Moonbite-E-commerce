@@ -1,0 +1,44 @@
+
+{% extends "_base.html" %}
+
+{% block title %}
+    <title>ムーンバイト | Detail</title>
+{% endblock %}
+
+{% block body_class %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<h1>{{ item.name }}</h1>
+{% if item.image %}
+    <img src="{{ item.image.url }}" alt="{{ item.name }}">
+{% else %}
+    <p>No image available</p>
+{% endif %}
+<p>{{ item.description }}</p>
+<p>Price: ${{ item.price }}</p>
+<p>Stock: {{ item.stock }}</p>
+
+{% if user.is_authenticated %}
+    {% if item.stock > 0 %}
+        <form method="post" action="{% url 'add_to_cart' item.id %}">
+            {% csrf_token %}
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="{{ item.stock }}" value="1">
+            <button type="submit">Add to Cart</button>
+        </form>
+        <a href="{% url 'view_cart' %}">View Cart</a>
+    {% else %}
+        <p>This item is sold out</p>
+    {% endif %}
+    {% if user.is_staff %}
+        <a href="{% url 'item_edit' pk=item.pk %}">Edit</a>
+        <a href="{% url 'item_delete' pk=item.pk %}">Delete</a>
+    {% endif %}
+{% endif %}
+
+{% endblock content %}

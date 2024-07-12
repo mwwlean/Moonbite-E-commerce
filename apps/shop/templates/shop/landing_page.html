@@ -1,0 +1,31 @@
+
+{% extends "_base.html" %}
+
+{% block title %}
+    <title>ムーンバイト | Home</title>
+{% endblock %}
+
+{% block body_class %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<h1>Welcome to the Landing Page</h1>
+<ul>
+    {% for item in items %}
+        <li>
+            <h2>{{ item.name }}</h2>
+            <p>{{ item.description }}</p>
+            <p>Price: {{ item.price }}</p>
+            {% if item.image %}
+                <img src="{{ item.image.url }}" style="width: 20px; height: auto;" alt="{{ item.name }}">
+            {% endif %}
+            <a href="{% url 'item_detail' item.id %}">View Details</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

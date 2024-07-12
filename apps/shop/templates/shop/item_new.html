@@ -1,0 +1,32 @@
+
+{% extends "_base.html" %}
+
+{% block title %}
+    <title>ムーンバイト | Create</title>
+{% endblock %}
+
+{% block body_class %}
+
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+    <h1>New Item</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="id_name">Name:</label>
+        <input type="text" id="id_name" name="name" required><br>
+        
+        <label for="id_description">Description:</label>
+        <textarea id="id_description" name="description" required></textarea><br>
+        
+        <label for="id_price">Price:</label>
+        <input type="text" id="id_price" name="price" required><br>
+        
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'item_list' %}">Cancel</a>
+
+{% endblock content %}
