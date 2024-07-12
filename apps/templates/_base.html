@@ -26,6 +26,7 @@
 </head>
 
 <body class="{% block body_class %}{% endblock %}font-montserrat">
+    {%comment%}
     <header>
         <nav>
             {% if user.is_authenticated %}
@@ -39,6 +40,8 @@
             {% endif %}
         </nav>
     </header>
+    {%endcomment%}
+
     <div class="" id="content">
         {% block content %}
         

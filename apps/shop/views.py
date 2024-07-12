@@ -14,6 +14,8 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             return redirect("login")
+        else:
+            print(form.errors)
     else:
         form = CustomerSignUpForm()
     return render(request, "shop/auth/signup.html", {"form": form})

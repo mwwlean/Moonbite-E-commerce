@@ -1,8 +1,7 @@
-
 {% extends "_base.html" %}
 
 {% block title %}
-    <title>ムーンバイト | Sign Up</title>
+<title>ムーンバイト | Sign Up</title>
 {% endblock %}
 
 {% block body_class %}
@@ -13,11 +12,48 @@
 
 {% load static %}
 
-    <h1>Signup</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
+<div class="flex h-screen ">
+    {% comment %} Left Pane {% endcomment %}
+    <div class="hidden lg:flex items-center justify-center flex-1 bg-color-4 text-black">
+        <div class="max-w-md text-center">
+            <div class="flex flex-col">
+                <img class="h-auto mx-auto rounded-2xl w-40" src="{% static 'assets/Favicon.png' %}"/>
+                <p class="font-semibold text-6xl text-color-2 pt-10">ムーンバイト</p>
+                <p class="font-semibold text-2xl text-color-2 pt-2">おいしい夜食</p>
+            </div>
+        </div>
+    </div>
+    {% comment %} Right Pane {% endcomment %}
+    <div class="w-full bg-color-2 lg:w-1/2 flex items-center justify-center">
+        <div class="max-w-md w-full p-6">
+            <h1 class="text-4xl font-semibold mb-6 text-black text-center">Register</h1>
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label for="username" class="block text-sm font-normal text-color-4">Username</label>
+                    <input type="text" id="username" name="username" class="mt-1 p-2 w-full border bg-color-2 border-color-5 rounded-lg focus:border-color-4 focus:ring-1 focus:ring-color-4 transition-all ease-in">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-normal text-color-4">Email Address</label>
+                    <input type="email" id="email" name="email" class="mt-1 p-2 w-full border bg-color-2 border-color-5 rounded-lg focus:border-color-4 focus:ring-1 focus:ring-color-4 transition-all ease-in">
+                </div>
+                <div>
+                    <label for="password1" class="block text-sm font-normal text-color-4">Password</label>
+                    <input type="password" id="password1" name="password1" class="mt-1 p-2 w-full border bg-color-2 border-color-5 rounded-lg focus:border-color-4 focus:ring-1 focus:ring-color-4 transition-all ease-in">
+                </div>
+                <div>
+                    <label for="password2" class="block text-sm font-normal text-color-4">Confirm Password</label>
+                    <input type="password" id="password2" name="password2" class="mt-1 p-2 w-full border bg-color-2 border-color-5 rounded-lg focus:border-color-4 focus:ring-1 focus:ring-color-4 transition-all ease-in">
+                </div>
+                <div>
+                    <button type="submit" class="w-full font-medium bg-color-4 text-color-2 p-2 rounded-lg hover:bg-color-5 transition-all ease-in">Sign Up</button>
+                </div>
+            </form>
+            <div class="mt-4 text-sm text-gray-600 text-center">
+                <p class="text-color-4">Already have an account? <a href="{% url 'login' %}" class="text-color-3 font-semibold hover:underline">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
