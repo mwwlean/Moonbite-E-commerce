@@ -6,13 +6,16 @@
 {% endblock %}
 
 {% block body_class %}
-
+bg-color-2
 {% endblock %}
 
 {% block content %}
 
 {% load static %}
 
+{% include 'navbar.html' %}
+
+{%comment%}
 <h1>{{ item.name }}</h1>
 {% if item.image %}
     <img src="{{ item.image.url }}" alt="{{ item.name }}">
@@ -40,5 +43,71 @@
         <a href="{% url 'item_delete' pk=item.pk %}">Delete</a>
     {% endif %}
 {% endif %}
+{% endcomment %}
+
+<section class="py-8 md:py-16 dark:bg-gray-900 antialiased">   
+    <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+        <div class="shrink-0 max-w-md lg:max-w-lg mx-auto bg-color-3 rounded-2xl border border-color-4">
+            {% if item.image %}
+            <img class="w-full dark:hidden" src="{{ item.image.url }}" alt="" />
+            {% else %}
+            <p>No image available</p>
+            {% endif %}
+        </div>
+
+        <div class="mt-6 sm:mt-8 lg:mt-0">
+          <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+            {{ item.name }}
+          </h1>
+          <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+            <p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
+            ¥ {{ item.price }}
+            </p>
+            <div class="flex items-center gap-2 mt-2 sm:mt-0">
+              <p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+              {{ item.stock }} Stock Available
+              </p>
+            </div>
+          </div>
+
+        {% if user.is_authenticated %}
+          {% if item.stock > 0 %}
+              <form method="post" action="{% url 'add_to_cart' item.id %}">
+                {% csrf_token %}
+                <div class="mt-6 gap-4 items-center flex sm:mt-8">
+                  <button type="submit" class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-color-2 focus:outline-none bg-color-3 rounded-lg hover:bg-color-3 focus:z-10 focus:ring-4 focus:ring-color-3 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                    Add to Cart
+                  </button>
+                
+                  <div>
+                    <div class="flex items-center">
+                      <input type="number" id="quantity" name="quantity" min="1" max="{{ item.stock }}" value="1" class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-color-4 focus:outline-none rounded-lg focus:ring-1 focus:ring-color-5" required />
+                    </div>  
+                  </div>
+              </div>
+            </form>
+            
+          <hr class="my-6 md:my-8 border-color-5"/> 
+
+          <p class="mb-6 text-color-4">                 
+            {{ item.description }}
+          </p>
+          {% else %}
+            <hr class="my-6 md:my-8 border-color-5"/> 
+            <p class="mb-6">This item is sold out</p>
+          {% endif %}
+          {% if user.is_staff %}
+            <a href="{% url 'item_edit' pk=item.pk %}">Edit</a>
+            <a href="{% url 'item_delete' pk=item.pk %}">Delete</a>
+          {% endif %}
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
 
 {% endblock content %}

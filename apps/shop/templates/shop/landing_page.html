@@ -6,13 +6,16 @@
 {% endblock %}
 
 {% block body_class %}
-
+bg-color-2
 {% endblock %}
 
 {% block content %}
 
 {% load static %}
 
+{% include 'navbar.html' %}
+
+{%comment%}
 <h1>Welcome to the Landing Page</h1>
 <ul>
     {% for item in items %}
@@ -27,5 +30,42 @@
         </li>
     {% endfor %}
 </ul>
+{%endcomment%}
+
+<div class="flex items-center mx-auto flex-col lg:max-w-screen-xl">
+<h1 class="mb-2 mt-20 text-4xl font-bold leading-none text-color-3 md:text-5xl lg:text-7xl tracking-wider">MOONBITE</h1>
+<p class="mb-4 text-lg font-semibold text-color-3 lg:text-4xl sm:px-16 xl:px-48 ">おいしい夜食</p>
+<a href="{% url "item_list" %}" class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-center text-color-2 bg-color-4 rounded-lg hover:bg-color-3 focus:ring-4 focus:ring-color-3 transition-all ease-in">
+    Shop Now!
+    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+  </svg>
+</a>
+
+<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mt-10">
+    <div class="border border-gray-800 rounded-2xl h-32 md:h-64 flex hover:bg-color-3 transiton-all ease-in">
+        <img class="items-center h-auto w-auto object-cover mx-auto py-8 px-10" src="{% static "assets/ramen.png" %}"/>
+    </div>
+    <div class="border border-gray-800 rounded-2xl h-32 md:h-64 flex hover:bg-color-3 transiton-all ease-in">
+        <img class="items-center h-auto w-auto object-cover mx-auto py-8 px-10" src="{% static "assets/sushi.png" %}"/>
+    </div>
+    <div class="border border-gray-800 rounded-2xl h-32 md:h-64 flex hover:bg-color-3 transiton-all ease-in">
+        <img class="items-center h-auto w-auto object-cover mx-auto py-8 px-10" src="{% static "assets/takoyaki.png" %}"/>
+    </div>
+    <div class="border border-gray-800 rounded-2xl h-32 md:h-64 flex hover:bg-color-3 transiton-all ease-in">
+        <img class="items-center h-auto w-auto object-cover mx-auto py-8 px-10" src="{% static "assets/cocktail.png" %}"/>
+    </div>
+  </div>
+
+  <div class="mt-4 mx-auto max-w-4xl text-center">
+    <p class="text-base text-color-3 font-semibold">ムーンバイトは深夜のお菓子のためのeコマースウェブサイトです。甘いものから塩辛いものまで、深夜の食欲を満たすさまざまなスナックを取り揃えています。シームレスなショッピング体験、簡単なナビゲーション、迅速な配送オプションを提供しています。今すぐショッピングを始めて、自宅で快適にお気に入りのスナックをいつでも楽しんでください。</p>
+  </div>
+
+</div>
+
+
+
+
+
 
 {% endblock content %}

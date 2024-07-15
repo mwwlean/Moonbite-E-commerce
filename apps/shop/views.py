@@ -117,7 +117,7 @@ def add_to_cart(request, item_id):
         cart_item.quantity = quantity
     cart_item.save()
     messages.success(request, f"{quantity} x {item.name} added to cart.")
-    return redirect("item_detail", pk=item_id)
+    return redirect("view_cart")
 
 
 @login_required

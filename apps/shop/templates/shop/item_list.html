@@ -6,13 +6,16 @@
 {% endblock %}
 
 {% block body_class %}
-
+bg-color-2
 {% endblock %}
 
 {% block content %}
 
 {% load static %}
 
+{% include 'navbar.html' %}
+
+{% comment %}
     <h1>Item List</h1>
     <ul>
         {% for item in items %}
@@ -35,5 +38,51 @@
             </li>
         {% endfor %}
     </ul>
+{% endcomment %}
+
+<div class="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
+    <div class="text-2xl text-color-4 font-semibold">
+        Available Snacks:
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 mt-2">
+        {% for item in items %}
+        <div class="">
+            <div class="overflow-hidden py-4 border bg-color-2 border-color-4 rounded-2xl">
+                <div class="flex flex-col justify-between">
+                    <div class="border border-color-4 mx-4 rounded-2xl bg-color-3">
+                        {% if item.image %}
+                        <img class="mx-auto h-64 object-cover" src="{{ item.image.url }}" alt="{{ item.name }}" />
+                        {% endif %}
+                    </div>
+                    <div class="px-4">
+                        <div class="mt-2">
+                            <h5 class="text-xl font-semibold tracking-tight text-color-4">{{ item.name }}</h5>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <div class="flex items-center flex-col">
+                                <p class="text-color-5 text-sm">{{ item.stock }} Stock</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center px-4">
+                        <div class="mr-auto">
+                            <span class="text-2xl font-bold text-color-3">¥ {{ item.price }}</span>
+                        </div>
+                        <a href="{% url 'item_detail' item.id %}" class="inline-flex items-center focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-1.5 text-center border border-color-4 hover:bg-color-4 text-color-4 hover:text-color-2 focus:ring-color-5 transition-all ease-in">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                            </svg>
+                            <span class="mx-2">
+                            Add to cart
+                            </span>
+                        </a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock content %}
