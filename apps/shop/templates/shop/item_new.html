@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block body_class %}
-
+bg-color-2
 {% endblock %}
 
 {% block content %}
 
 {% load static %}
 
+{%comment%}
     <h1>New Item</h1>
     <form method="post">
         {% csrf_token %}
@@ -28,5 +29,5 @@
         <button type="submit">Save</button>
     </form>
     <a href="{% url 'item_list' %}">Cancel</a>
-
+{%endcomment%}
 {% endblock content %}
